@@ -1,0 +1,2 @@
+-moins d'infos sur chaque film récupéré dans la bdd
+-modale qui s'affiche trop haut, comment la personnaliser ?

@@ -1,0 +1,33 @@
+<!-- *ngIf="movie" is used to show the line only if the movie is defined-->
+<li *ngIf="getMovie()" class="list-group-item">
+    
+    <!-- we put getMovie().id and not movieId in order to be able to change the FavorisComponent attributes
+        without breaking the code
+    -->
+    <div class="content">
+        <span (click)=showInfos(template)>{{getMovieInfos().Title}}</span>
+        <input id={{getMovie().id}} type="checkbox" [checked]="getMovie().isFavorite" (click)="changeFavorite()"/>
+        <label for={{getMovie().id}}></label> 
+        <button class="btn btn-trash" (click)="onDelete(getMovie().id)"><i class='fa fa-trash-o'></i></button>
+    </div>
+    
+</li>
+
+<!--Here the popup which contains the movie informations
+    Maybe it is better to put this code into its own component...
+-->
+<!--This modal is not on the center of the screen!!! But I don't know how I can fix this-->
+<ng-template class="modal-helper" #template>
+    <div class="modal-content">
+        <div class="modal-header">salut</div>
+        <div class="modal-body">
+            <button type="button" class="close pull-right" (click)="modalRef.hide()"></button>
+            <h1>{{getMovieInfos().Title}}</h1>
+            
+            <p>{{getMovieInfos().Type}}</p>
+            <p>{{getMovieInfos().Year}}</p>
+    
+            <img src={{getMovieInfos().Poster}}/>
+          </div>
+    </div>
+</ng-template>

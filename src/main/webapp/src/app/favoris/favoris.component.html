@@ -1,0 +1,13 @@
+
+<h1>{{title}}</h1>
+<h5 *ngIf="getFavoriteMovies().length===0">You have no favorite movie yet!</h5>
+<br>
+<div id="movies">
+  <ul class="list-group">
+    <app-movie *ngFor="let oneMovie of getFavoriteMovies()"
+                 [movieId] = "oneMovie.id"
+    ></app-movie>
+  </ul>
+</div>
+
+
