@@ -1,5 +1,7 @@
 package com.safetyline.apptest;
 
+import java.util.ArrayList;
+
 import javax.servlet.Servlet;
 
 import org.eclipse.jetty.server.Handler;
@@ -14,6 +16,10 @@ import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
+
+import com.safetyline.apptest.dao.DAO;
+import com.safetyline.apptest.dao.Movie;
+import com.safetyline.apptest.dao.User;
 
 public class JettyServer {
 
@@ -40,8 +46,6 @@ public class JettyServer {
 		handlerPortal.setResourceBase("src/main/webapp");
 		handlerPortal.setDirectoriesListed(false);
 
-		handlerPortal.setWelcomeFiles(new String[] { "index.html" });
-
 		ContextHandler handlerPortalCtx = new ContextHandler();
 		handlerPortalCtx.setContextPath("/");
 		handlerPortalCtx.setHandler(handlerPortal);
@@ -56,11 +60,18 @@ public class JettyServer {
 
 		// Activate handlers
 		ContextHandlerCollection contexts = new ContextHandlerCollection();
-		contexts.setHandlers(new Handler[] { handlerWebServices, handlerPortalCtx });
+		contexts.setHandlers(new Handler[] { handlerWebServices });
 		server.setHandler(contexts);
 
 		// Start server
 		server.start();
+
+		User user = new User();
+		user.setName("jean");
+		user.setHashPassword("password");
+		user.setMovies(new ArrayList<Movie>());
+		DAO.getUserDao().addUser(user);
+
 	}
 
 }

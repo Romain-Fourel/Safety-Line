@@ -1,0 +1,24 @@
+<h1>My list of Movies !!</h1>
+
+<input class="input-sm" type="search" placeholder="Search a movie..."
+      list="searchMoviesList"
+      (keyup)="onKey()" 
+      [(ngModel)]="input"/>
+
+<datalist id="searchMoviesList">
+  <option *ngFor="let oneMovie of getSearchedMovies()"
+          [value]="oneMovie.Title">
+</datalist>
+
+<button class="btn btn-success" (click)="onAddMovie()">add</button>
+
+<div id="movies">
+  <ul class="list-group">
+    <app-movie *ngFor="let oneMovie of getMovies()"
+                 [movieId] = "oneMovie.id"
+    ></app-movie>
+
+  </ul>
+
+</div>
+

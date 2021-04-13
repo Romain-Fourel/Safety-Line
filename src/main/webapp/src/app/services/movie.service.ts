@@ -6,7 +6,7 @@ export class MovieService{
     
     //all deleted movies are kept in the array until the end of the program...
     //it could be a problem... or not !
-    movies = []
+    movies=[];
 
     static searchedMovies:any=[];
 
@@ -18,13 +18,21 @@ export class MovieService{
     }
 
     addMovie(infoMovie:any,isFavorite:boolean){
-        var newMovie = {info:infoMovie,isFavorite:isFavorite,id:MovieService.counter};
-        this.movies.push(newMovie);
+        var newMovie = {info:infoMovie,isFavorite:isFavorite};
+        //TODO: replace the '0' by the real id of the user
+        this.httpClient.post("http://localhost:8080/ws/Movie/add/0",newMovie)
+                       .subscribe((movie:any)=>{
+                           console.log(movie);
+                           console.log(this.movies.length);
+                           this.movies.push[movie];
+                       });
         MovieService.counter++;
     }
 
     deleteMovie(id:number){
         this.movies[id] = undefined;
+        //TODO: replace the '0' by the real id of the user
+        this.httpClient.delete("/api/ws/Movie/del/0",this.movies[id]);
     }
 
     getMoviesFromOMDb(name:string){
