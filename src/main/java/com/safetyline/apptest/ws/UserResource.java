@@ -45,17 +45,4 @@ public class UserResource {
 		return user;
 	}
 
-	/**
-	 * TODO: DELETE THIS
-	 */
-	@POST
-	@Consumes(MediaType.TEXT_PLAIN)
-	@Produces(MediaType.TEXT_PLAIN)
-	@Path("/fake")
-	public String fakeUser(String data) {
-
-		System.out.println("data:'" + data + "'");
-		return data;
-	}
-
 }

@@ -178,3 +178,7 @@
 15:25:32,678 (main) INFO  [DataNucleus.Enhancer] - Class "com.safetyline.apptest.dao.Movie" is already enhanced.
 15:25:32,680 (main) INFO  [DataNucleus.Enhancer] - Class "com.safetyline.apptest.dao.User" is already enhanced.
 15:25:32,680 (main) INFO  [DataNucleus.Enhancer] - DataNucleus Enhancer completed with success for 2 classes.
+16:12:25,473 (main) INFO  [DataNucleus.Enhancer] - DataNucleus Enhancer (version 4.0.3) for API "JDO"
+16:12:25,586 (main) INFO  [DataNucleus.Enhancer] - Class "com.safetyline.apptest.dao.Movie" is already enhanced.
+16:12:25,586 (main) INFO  [DataNucleus.Enhancer] - Class "com.safetyline.apptest.dao.User" is already enhanced.
+16:12:25,587 (main) INFO  [DataNucleus.Enhancer] - DataNucleus Enhancer completed with success for 2 classes.

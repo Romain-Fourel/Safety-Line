@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { MovieService } from '../services/movie.service';
 
 @Component({
   selector: 'app-auth',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthComponent implements OnInit {
 
-  constructor() { }
+  @Input() userName:string;
+  @Input() password:string;
+
+  constructor(private movieService:MovieService) { }
 
   ngOnInit() {
+  }
+
+  onConnection(){
+    let data = [this.userName,this.password];
+    this.movieService.getMOviesFromUser(data);
+    
   }
 
 }

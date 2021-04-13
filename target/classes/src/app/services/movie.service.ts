@@ -20,7 +20,7 @@ export class MovieService{
     addMovie(infoMovie:any,isFavorite:boolean){
         var newMovie = {info:infoMovie,isFavorite:isFavorite};
         //TODO: replace the '0' by the real id of the user
-        this.httpClient.post("/api/ws/Movie/add/0",newMovie)
+        this.httpClient.post("http://localhost:8080/ws/Movie/add/0",newMovie)
                        .subscribe((movie:any)=>{
                            console.log(movie);
                            console.log(this.movies.length);
@@ -31,6 +31,8 @@ export class MovieService{
 
     deleteMovie(id:number){
         this.movies[id] = undefined;
+        //TODO: replace the '0' by the real id of the user
+        this.httpClient.delete("/api/ws/Movie/del/0",this.movies[id]);
     }
 
     getMoviesFromOMDb(name:string){

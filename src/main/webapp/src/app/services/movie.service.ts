@@ -8,10 +8,15 @@ export class MovieService{
     //it could be a problem... or not !
     movies=[];
 
+    static isConnected:boolean=false;
+
     static searchedMovies:any=[];
 
     //in order to give an id to each FavorisComponent
     static counter = 0;
+
+    //http://localhost:8080/ws or /api/ws ?????
+    javaUrl = "http://localhost:8080/ws";
 
     constructor(private httpClient:HttpClient){
         MovieService.searchedMovies = [];
@@ -20,7 +25,7 @@ export class MovieService{
     addMovie(infoMovie:any,isFavorite:boolean){
         var newMovie = {info:infoMovie,isFavorite:isFavorite};
         //TODO: replace the '0' by the real id of the user
-        this.httpClient.post("http://localhost:8080/ws/Movie/add/0",newMovie)
+        this.httpClient.post(this.javaUrl+"/Movie/add/0",newMovie)
                        .subscribe((movie:any)=>{
                            console.log(movie);
                            console.log(this.movies.length);
@@ -32,8 +37,18 @@ export class MovieService{
     deleteMovie(id:number){
         this.movies[id] = undefined;
         //TODO: replace the '0' by the real id of the user
-        this.httpClient.delete("/api/ws/Movie/del/0",this.movies[id]);
+        this.httpClient.delete(this.javaUrl+"/Movie/del/0",this.movies[id]);
     }
+
+
+    getMOviesFromUser(data:string[]){
+        this.httpClient.post(this.javaUrl+"/User/connect",data)
+                       .subscribe((user:any)=>{
+                        MovieService.isConnected = true;
+                        this.movies = user.movies;
+                       });
+    }
+
 
     getMoviesFromOMDb(name:string){
         //Because I don't know how to use HttpParams...

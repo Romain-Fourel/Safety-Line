@@ -1,7 +1,4 @@
-/**
- * THIS CODE IS COPIED FROM THE NET:
- * https://bootsnipp.com/snippets/dldxB
- **/
+/* BASIC */
 
 html {
     background-color: #56baed;
@@ -133,7 +130,7 @@ html {
     border-bottom: 2px solid #5fbae9;
   }
   
-  input[type=text]:placeholder {
+  input[type=text],input[type=password]:placeholder {
     color: #cccccc;
   }
   
