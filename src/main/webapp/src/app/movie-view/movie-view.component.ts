@@ -19,6 +19,7 @@ export class MovieViewComponent implements OnInit {
 
   ngOnInit(){
     this.movies = this.movieService.movies;
+    MovieService.isConnected=true;
   }
 
   /**

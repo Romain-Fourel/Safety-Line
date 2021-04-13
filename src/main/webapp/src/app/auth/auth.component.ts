@@ -18,7 +18,7 @@ export class AuthComponent implements OnInit {
 
   onConnection(){
     let data = [this.userName,this.password];
-    this.movieService.getMOviesFromUser(data);
+    this.movieService.getMoviesFromUser(data);
     
   }
 

@@ -8,16 +8,14 @@ import { MovieService } from '../services/movie.service';
 })
 export class FavorisComponent implements OnInit {
 
-  title:string;
-
   favoriteMovies:any[];
 
   constructor(private movieService:MovieService) { 
-    this.title="My Favorite Movies !";
   }
 
   ngOnInit() {
     this.favoriteMovies = this.movieService.movies;
+    MovieService.isConnected=true;
   }
 
   getFavoriteMovies(){
