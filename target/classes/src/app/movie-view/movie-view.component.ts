@@ -19,6 +19,9 @@ export class MovieViewComponent implements OnInit {
 
   ngOnInit(){
     this.movies = this.movieService.movies;
+
+    //TODO: replace by the id of the user currently connected
+    MovieService.idUser=0;
   }
 
   /**
@@ -39,16 +42,19 @@ export class MovieViewComponent implements OnInit {
   }
 
   onAddMovie(){
-    var chosenMovie:any;
+    var chosenMovie:any=undefined;
     for (const movie of this.getSearchedMovies()) {
       if (movie.Title === this.input){
         chosenMovie = movie;
       }
     }
 
-    if(this.input!==""){
-      this.movieService.addMovie(chosenMovie,false);
+    if(chosenMovie!==undefined){
+      this.movieService.addMovie(chosenMovie);
       this.input = "";
+    }
+    else{
+      alert("Please choose a movie which is in the database !");
     }
   }
 

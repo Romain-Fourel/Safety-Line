@@ -7,9 +7,9 @@
   
       <!-- Login Form -->
       <form>
-        <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
-        <input type="password" id="password" class="fadeIn third" name="login" placeholder="password">
-        <input type="submit" class="fadeIn fourth" value="Log In">
+        <input type="text" id="login" class="fadeIn second" name="login" placeholder="login" [(ngModel)] = userName>
+        <input type="password" id="password" class="fadeIn third" name="login" placeholder="password" [(ngModel)] = password>
+        <input type="submit" class="fadeIn fourth" value="Log In" (click)=onConnection()>
       </form>
   
     </div>

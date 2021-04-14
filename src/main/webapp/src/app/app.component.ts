@@ -18,7 +18,7 @@ export class AppComponent implements OnInit{
   }
 
   getIsConnected(){
-    return MovieService.isConnected;
+    return MovieService.idUser!==undefined;
   }
 
 }

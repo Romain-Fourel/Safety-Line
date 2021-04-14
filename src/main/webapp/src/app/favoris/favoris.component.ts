@@ -15,7 +15,9 @@ export class FavorisComponent implements OnInit {
 
   ngOnInit() {
     this.favoriteMovies = this.movieService.movies;
-    MovieService.isConnected=true;
+
+    //TODO: replace by the id of the user currently connected
+    MovieService.idUser=0;
   }
 
   getFavoriteMovies(){

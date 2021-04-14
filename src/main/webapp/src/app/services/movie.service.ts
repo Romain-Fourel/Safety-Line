@@ -13,9 +13,8 @@ export class MovieService{
     
     static counter:number=0;
 
-    static isConnected:boolean=false;
+    static idUser:number=0;
 
-    //http://localhost:8080/ws or /api/ws ?????
     javaUrl = "http://localhost:8080/ws";
 
     constructor(private httpClient:HttpClient){
@@ -29,30 +28,46 @@ export class MovieService{
      * on the application, this is totally false.
      * ==> To debug...
      */
-    addMovie(infoMovie:any,isFavorite:boolean){
-        var newMovie = {info:infoMovie,isFavorite:isFavorite};
-        //TODO: replace the '0' by the real id of the user
-        this.httpClient.post(this.javaUrl+"/Movie/add/0",newMovie)
+    addMovie(infoMovie:any){
+        
+        //TODO: delete those 3 following lines: (when CORS issue will be fixed)
+        /*var newMovie = {info:infoMovie,isFavorite:false,id:MovieService.counter};
+        this.movies.push(newMovie);
+        MovieService.counter++;*/
+
+        var newMovie = {info:infoMovie,isFavorite:false};
+        this.httpClient.post("http://localhost:8080/ws/Movie/add/0",newMovie)
                        .subscribe((movie:any)=>{
-                           this.movies.push[movie];
+                           this.movies.push(movie);
+                           MovieService.counter++;
                        });
-        MovieService.counter++;
+        
     }
 
     deleteMovie(id:number){
         this.movies[id] = undefined;
-        //TODO: replace the '0' by the real id of the user
-        this.httpClient.delete(this.javaUrl+"/Movie/del/0",this.movies[id]);
+        /*this.httpClient.delete(this.javaUrl+"/Movie/del/0",this.movies[id]);*/
     }
 
 
     getMoviesFromUser(data:string[]){
-        MovieService.isConnected = true;
-        this.httpClient.post(this.javaUrl+"/User/connect",data)
+        
+        //TODO: remove those lines (when CORS issue will be fixed) 
+
+        console.log(data);
+        //fake connection:
+        if (data[0]==="jean" && data[1] === "123456"){
+            MovieService.idUser = 0;
+        }
+        else{
+            alert("Sorry the password doesn't match with the user name");
+        }
+        
+       /* this.httpClient.post(this.javaUrl+"/User/connect",data)
                        .subscribe((user:any)=>{
-                        MovieService.isConnected = true;
+                        MovieService.idUser = user.id;
                         this.movies = user.movies;
-                       });
+                       });*/
     }
 
 

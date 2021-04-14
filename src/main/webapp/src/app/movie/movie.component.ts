@@ -43,7 +43,6 @@ export class MovieComponent implements OnInit {
 
   showInfos(template:TemplateRef<any>){
     this.modalRef = this.modalService.show(template);
-    console.log(this.getMovieInfos());
   }
 
 }

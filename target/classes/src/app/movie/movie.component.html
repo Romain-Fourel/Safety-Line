@@ -2,7 +2,7 @@
 <li *ngIf="getMovie()" class="list-group-item">
     
     <div class="content">
-        <span (click)=showInfos(template)>{{getMovieInfos().Title}}</span>
+        <span (click)=showInfos(template) >{{getMovieInfos().Title}}</span>
         <input id={{getMovie().id}} type="checkbox" [checked]="getMovie().isFavorite" (click)="changeFavorite()"/>
         <label for={{getMovie().id}}></label> 
         <button class="btn btn-trash" (click)="onDelete(getMovie().id)"><i class='fa fa-trash-o'></i></button>
@@ -14,7 +14,7 @@
     Maybe it is better to put this code into its own component...
 -->
 <!--This modal is not on the center of the screen!!! But I don't know how I can fix this-->
-<ng-template class="modal-helper" #template>
+<ng-template #template>
     <div class="modal-content">
         <div class="modal-header">salut</div>
         <div class="modal-body">
@@ -28,3 +28,4 @@
           </div>
     </div>
 </ng-template>
+

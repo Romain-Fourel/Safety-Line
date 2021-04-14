@@ -7,9 +7,7 @@ import javax.servlet.Servlet;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
-import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
-import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.glassfish.jersey.filter.LoggingFilter;
@@ -36,19 +34,24 @@ public class JettyServer {
 
 		// Jersey configuration:
 		ResourceConfig config = new ResourceConfig();
+
 		config.packages(true, "com.safetyline.apptest.ws");
 		config.register(JacksonFeature.class);
 		config.register(LoggingFilter.class);
+		// config.register(CorsFilter.class);
 
 		// ------------ TODO: delete this part below-------------------//
 
-		ResourceHandler handlerPortal = new ResourceHandler();
-		handlerPortal.setResourceBase("src/main/webapp");
-		handlerPortal.setDirectoriesListed(false);
-
-		ContextHandler handlerPortalCtx = new ContextHandler();
-		handlerPortalCtx.setContextPath("/");
-		handlerPortalCtx.setHandler(handlerPortal);
+		/*
+		 * ResourceHandler handlerPortal = new ResourceHandler();
+		 * 
+		 * handlerPortal.setResourceBase("src/main/webapp");
+		 * handlerPortal.setDirectoriesListed(false);
+		 * 
+		 * ContextHandler handlerPortalCtx = new ContextHandler();
+		 * handlerPortalCtx.setContextPath("/");
+		 * handlerPortalCtx.setHandler(handlerPortal);
+		 */
 
 		// ------------ TODO: delete this part above------------------//
 
@@ -62,7 +65,6 @@ public class JettyServer {
 		ContextHandlerCollection contexts = new ContextHandlerCollection();
 		contexts.setHandlers(new Handler[] { handlerWebServices });
 		server.setHandler(contexts);
-
 		// Start server
 		server.start();
 
