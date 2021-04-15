@@ -14,7 +14,6 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 const appRoute: Routes = [
   {path:"movies",component:MovieViewComponent},
   {path:"",component:AuthComponent},
-  {path:"auth",component:AuthComponent},
   {path:"favoris",component:FavorisComponent}
 ]
 

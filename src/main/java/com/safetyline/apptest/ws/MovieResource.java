@@ -30,9 +30,10 @@ public class MovieResource {
 		return Response.ok().header("Access-Control-Allow-Origin", "*")
 				.header("Access-Control-Allow-Credentials", "true")
 				.header("Access-Control-Allow-Headers","origin, content-type, accept, authorization")
-				.header("Access-Control-Allow-Methods","GET, POST, PUT, DELETE, OPTIONS, HEAD")
+				.header("Access-Control-Allow-Methods","GET, POST, PUT, DELETE, HEAD")
 				.entity(movie).build();
 				*/
+				
 		 
 	}
 

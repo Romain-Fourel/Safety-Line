@@ -15,9 +15,6 @@ export class FavorisComponent implements OnInit {
 
   ngOnInit() {
     this.favoriteMovies = this.movieService.movies;
-
-    //TODO: replace by the id of the user currently connected
-    MovieService.idUser=0;
   }
 
   getFavoriteMovies(){
@@ -28,6 +25,10 @@ export class FavorisComponent implements OnInit {
       }
     }
     return favoriteMovies;
+  }
+
+  isConnected(){
+    return MovieService.idUser!=undefined;
   }
 
 

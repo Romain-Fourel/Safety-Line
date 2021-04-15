@@ -15,6 +15,36 @@ public class UserDaoImpl implements UserDao {
 	public UserDaoImpl(PersistenceManagerFactory pmf) {
 		this.pmf = pmf;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<User> getUsers() {
+		List<User> users = null;
+		List<User> detached = new ArrayList<User>();
+
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+
+		try {
+			tx.begin();
+
+			Query q = pm.newQuery(User.class);
+			users = (List<User>) q.execute();
+			
+			users.toString();
+			
+			detached = (List<User>) pm.detachCopyAll(users);
+		
+			tx.commit();
+
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		return detached;
+	}
 
 	@Override
 	public User getUser(long id) {
@@ -27,8 +57,11 @@ public class UserDaoImpl implements UserDao {
 		try {
 			tx.begin();
 			user = pm.getObjectById(User.class, id);
+			
+			user.toString();
 
 			detached = pm.detachCopy(user);
+			
 			tx.commit();
 
 		} finally {
@@ -42,14 +75,19 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User addUser(User user) {
+		
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 
-		User detached = new User();
-
+		User detached = null;
+		
+		
 		try {
 			tx.begin();
-			detached = pm.makePersistent(user);
+			user = pm.makePersistent(user);
+			
+			detached = pm.detachCopy(user);
+			
 
 			tx.commit();
 
@@ -59,12 +97,13 @@ public class UserDaoImpl implements UserDao {
 			}
 			pm.close();
 		}
+		
 		return detached;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<User> getUsers(String name, String password) {
+	public List<User> getUsers(String name) {
 		List<User> users = null;
 		List<User> detached = new ArrayList<User>();
 
@@ -75,10 +114,13 @@ public class UserDaoImpl implements UserDao {
 			tx.begin();
 
 			Query q = pm.newQuery(User.class);
-			// TODO: hash the password !!!
-			q.declareParameters("String username, String pw");
-			q.setFilter("name == username && hashPassword==pw");
-			users = (List<User>) q.execute(name, password);
+
+			q.declareParameters("String username");
+			q.setFilter("name == username");
+			users = (List<User>) q.execute(name);
+			
+			users.toString();
+			
 			detached = (List<User>) pm.detachCopyAll(users);
 
 			tx.commit();

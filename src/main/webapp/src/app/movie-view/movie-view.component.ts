@@ -19,9 +19,6 @@ export class MovieViewComponent implements OnInit {
 
   ngOnInit(){
     this.movies = this.movieService.movies;
-
-    //TODO: replace by the id of the user currently connected
-    MovieService.idUser=0;
   }
 
   /**
@@ -60,6 +57,10 @@ export class MovieViewComponent implements OnInit {
 
   onKey(){
     this.movieService.getMoviesFromOMDb(this.input);
+  }
+
+  isConnected(){
+    return MovieService.idUser!=undefined;
   }
 
 }

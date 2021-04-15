@@ -4,7 +4,9 @@ import java.util.List;
 
 public interface UserDao {
 
-	List<User> getUsers(String name, String password);
+	List<User> getUsers();
+	
+	List<User> getUsers(String name);
 
 	User getUser(long id);
 

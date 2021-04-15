@@ -1,10 +1,13 @@
 package com.safetyline.apptest.ws;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import com.safetyline.apptest.dao.DAO;
 import com.safetyline.apptest.dao.User;
@@ -16,10 +19,9 @@ public class UserResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/add")
-	public User addUser(User user) {
+	public Response addUser(User user) {
 		user = DAO.getUserDao().addUser(user);
-
-		return user;
+		return Response.ok(DAO.getUserDao().getUsers()).build();
 	}
 
 	/**
@@ -31,18 +33,25 @@ public class UserResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/connect")
-	public User findUser(String[] data) {
-
-		System.out.println(data);
+	public Response findUser(String[] data) {
 
 		String name = (String) data[0];
 		String password = (String) data[1];
+		
+		List<User> users = DAO.getUserDao().getUsers(name);
 
-		// we assume that there is only one user who has one specific pair of
-		// name/password :
-		User user = DAO.getUserDao().getUsers(name, password).get(0);
+		if (users.size()>0) {
+			// we assume that there is only one user who has one specific pair of
+			// name/password :
+			for (User retrievedUser : users) {
+				if (retrievedUser.hasPassword(password)) {
+					return Response.ok(retrievedUser).build();
+				};
+			}
+		}
 
-		return user;
+		return Response.ok(null).build();
 	}
+
 
 }

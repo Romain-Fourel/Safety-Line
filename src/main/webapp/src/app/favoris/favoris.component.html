@@ -1,13 +1,24 @@
 
 <h1>My Favorite Movies !!</h1>
-<h5 *ngIf="getFavoriteMovies().length===0">You have no favorite movie yet!</h5>
-<br>
-<div id="movies">
-  <ul class="list-group">
-    <app-movie *ngFor="let oneMovie of getFavoriteMovies()"
-                 [movieId] = "oneMovie.id"
-    ></app-movie>
-  </ul>
+<div *ngIf=isConnected()>
+  <h5 *ngIf="getFavoriteMovies().length===0">You have no favorite movie yet!</h5>
+  <br>
+  <div id="movies">
+    <ul class="list-group">
+      <app-movie *ngFor="let oneMovie of getFavoriteMovies()"
+                   [movieId] = "oneMovie.id"
+      ></app-movie>
+    </ul>
+  </div>
 </div>
+
+<div *ngIf=!isConnected()>
+  <h2>Sorry, you are not connected :/</h2>
+  <p>
+    Please connect you at this url:
+    <a routerLink="">http://localhost:4200</a>
+  </p>
+</div>
+
 
 

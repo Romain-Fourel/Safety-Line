@@ -21,5 +21,11 @@ export class AppComponent implements OnInit{
     return MovieService.idUser!==undefined;
   }
 
+  onDisconnect(){
+    if(confirm("Do you really want to disconnect ?")){
+      MovieService.idUser = undefined;
+    }
+  }
+
 }
 

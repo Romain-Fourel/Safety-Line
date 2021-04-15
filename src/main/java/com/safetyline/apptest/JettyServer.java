@@ -1,7 +1,5 @@
 package com.safetyline.apptest;
 
-import java.util.ArrayList;
-
 import javax.servlet.Servlet;
 
 import org.eclipse.jetty.server.Handler;
@@ -16,8 +14,15 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
 
 import com.safetyline.apptest.dao.DAO;
-import com.safetyline.apptest.dao.Movie;
 import com.safetyline.apptest.dao.User;
+
+
+/**
+ * The ajax call from angular doesn't works ! Thus, the saving profile feature is not available.
+ * However, all DAOs are tested thanks to POSTMAN
+ * @author romai
+ *
+ */
 
 public class JettyServer {
 
@@ -38,22 +43,7 @@ public class JettyServer {
 		config.packages(true, "com.safetyline.apptest.ws");
 		config.register(JacksonFeature.class);
 		config.register(LoggingFilter.class);
-		// config.register(CorsFilter.class);
-
-		// ------------ TODO: delete this part below-------------------//
-
-		/*
-		 * ResourceHandler handlerPortal = new ResourceHandler();
-		 * 
-		 * handlerPortal.setResourceBase("src/main/webapp");
-		 * handlerPortal.setDirectoriesListed(false);
-		 * 
-		 * ContextHandler handlerPortalCtx = new ContextHandler();
-		 * handlerPortalCtx.setContextPath("/");
-		 * handlerPortalCtx.setHandler(handlerPortal);
-		 */
-
-		// ------------ TODO: delete this part above------------------//
+		config.register(CorsFilter.class);
 
 		// Add a servlet handler for web services (/ws/*)
 		ServletHolder servletHolder = new ServletHolder((Servlet) new ServletContainer(config));
@@ -61,7 +51,7 @@ public class JettyServer {
 		handlerWebServices.setContextPath("/ws");
 		handlerWebServices.addServlet(servletHolder, "/*");
 
-		// Activate handlers
+		// Activate handler
 		ContextHandlerCollection contexts = new ContextHandlerCollection();
 		contexts.setHandlers(new Handler[] { handlerWebServices });
 		server.setHandler(contexts);
@@ -70,9 +60,9 @@ public class JettyServer {
 
 		User user = new User();
 		user.setName("jean");
-		user.setHashPassword("password");
-		user.setMovies(new ArrayList<Movie>());
-		DAO.getUserDao().addUser(user);
+		user.setPassword("password");
+		
+		user = DAO.getUserDao().addUser(user);
 
 	}
 

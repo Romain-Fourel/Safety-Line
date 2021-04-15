@@ -13,7 +13,7 @@ export class MovieService{
     
     static counter:number=0;
 
-    static idUser:number=0;
+    static idUser:number;
 
     javaUrl = "http://localhost:8080/ws";
 
@@ -31,16 +31,18 @@ export class MovieService{
     addMovie(infoMovie:any){
         
         //TODO: delete those 3 following lines: (when CORS issue will be fixed)
-        /*var newMovie = {info:infoMovie,isFavorite:false,id:MovieService.counter};
+        var newMovie = {info:infoMovie,isFavorite:false,id:MovieService.counter};
         this.movies.push(newMovie);
-        MovieService.counter++;*/
+        MovieService.counter++;
 
+        /*
         var newMovie = {info:infoMovie,isFavorite:false};
-        this.httpClient.post("http://localhost:8080/ws/Movie/add/0",newMovie)
+        this.httpClient.post(this.javaUrl+"/ws/Movie/add/0",newMovie)
                        .subscribe((movie:any)=>{
                            this.movies.push(movie);
                            MovieService.counter++;
                        });
+                       */
         
     }
 
@@ -51,17 +53,10 @@ export class MovieService{
 
 
     getMoviesFromUser(data:string[]){
-        
-        //TODO: remove those lines (when CORS issue will be fixed) 
 
-        console.log(data);
-        //fake connection:
-        if (data[0]==="jean" && data[1] === "123456"){
-            MovieService.idUser = 0;
-        }
-        else{
-            alert("Sorry the password doesn't match with the user name");
-        }
+        //as long as the interaction between angular and jersey doesn't work,
+        // the connection is fake and there is no need to input an user name and a password
+        MovieService.idUser = 0;
         
        /* this.httpClient.post(this.javaUrl+"/User/connect",data)
                        .subscribe((user:any)=>{
@@ -72,13 +67,13 @@ export class MovieService{
 
 
     getMoviesFromOMDb(name:string){
+        
         //Because I don't know how to use HttpParams...
-        let params = ["?s=","&apikey=f08bf9a0"];
-        params[0] += name;
+        let key="&apikey=f08bf9a0";
+        let params = "?s="+name;
 
-        this.httpClient.get("http://www.omdbapi.com/"+params[0]+params[1])
+        this.httpClient.get("http://www.omdbapi.com/"+params+key)
                        .subscribe((response:any)=>{
-                           console.log(response.Search);
                             let success = response.Response == "True";
                             if(success){
                                 MovieService.searchedMovies = response.Search;

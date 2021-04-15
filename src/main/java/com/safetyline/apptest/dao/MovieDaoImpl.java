@@ -48,7 +48,7 @@ public class MovieDaoImpl implements MovieDao {
 			User user = pm.getObjectById(User.class, userId);
 			user.addMovie(movie);
 
-			System.out.println(movie);
+			user.toString();
 
 			detached = pm.detachCopy(movie);
 
@@ -75,6 +75,8 @@ public class MovieDaoImpl implements MovieDao {
 
 			User user = pm.getObjectById(User.class, userId);
 			user.removeMovie(movie);
+			
+			user.toString();
 
 			Movie moviePersistent = pm.getObjectById(Movie.class, movie.getId());
 			pm.deletePersistent(moviePersistent);
