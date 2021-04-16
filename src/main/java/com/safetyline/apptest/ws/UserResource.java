@@ -21,7 +21,7 @@ public class UserResource {
 	@Path("/add")
 	public Response addUser(User user) {
 		user = DAO.getUserDao().addUser(user);
-		return Response.ok(DAO.getUserDao().getUsers()).build();
+		return Response.ok(user).build();
 	}
 
 	/**
